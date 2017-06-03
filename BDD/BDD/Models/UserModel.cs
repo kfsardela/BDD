@@ -16,7 +16,7 @@ namespace BDD.Models
         [EmailAddress(ErrorMessage="Email é obrigatório")]
         public String Email { get; set; }
 
-        [Required(ErrorMessage="Password é obrigado")]
+        [Required(ErrorMessage= "Password é obrigatório")]
         public String Password { get; set; }
     }
 }

@@ -17,7 +17,8 @@ namespace BDD.Tests
         public void CreateWebDriver()
         {
             //Cria a instancia do browser antes de executar os cenarios
-            this.Browser = new ChromeDriver();
+            this.Browser = new OpenQA.Selenium.IE.InternetExplorerDriver();
+            
         }
 
         [AfterScenario]
