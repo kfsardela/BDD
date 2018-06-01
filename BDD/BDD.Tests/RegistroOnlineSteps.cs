@@ -5,90 +5,99 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
+using OpenQA.Selenium.IE;
 
 namespace BDD.Tests
 {
     [Binding]
     public class RegistroOnlineSteps
     {
-        IWebDriver Browser;
+        private IWebDriver Browser;
 
         [BeforeScenario]
         public void CreateWebDriver()
         {
-            //Cria a instancia do browser antes de executar os cenarios
-            this.Browser = new OpenQA.Selenium.IE.InternetExplorerDriver();
+            ChromeDriverService service = ChromeDriverService.CreateDefaultService();
+
+            ChromeOptions chromeOpts = new ChromeOptions();
+            //chromeOpts.AddArgument("--headless");
             
+            //Cria a instancia do browser antes de executar os cenarios
+            Browser = new ChromeDriver(service, chromeOpts);
         }
 
-        [AfterScenario]
+        [BeforeScenario]
         public void CloseWebDriver()
         {
             //Fecha o browser depois que termina os cenarios
-            this.Browser.Close();
-            this.Browser.Dispose();
+            Browser.Close();
+            Browser.Dispose();
         }
+
+        [Given(@"naveguei para a página de cadastro")]
+        public void DadoNavegueiParaAPaginaDeCadastro()
+        {
+            //Navega para a URL da pagina de Cadastro
+            Browser.Navigate().GoToUrl("http://localhost:64861/Account/Create");
+        }
+
+        [Given(@"não inseri a informação de email")]
+        public void DadoNaoInseriAsInformacoesDeEmail()
+        {
+            //Pegando os elementos e gerando valores de testes
+            var txtNome = Browser.FindElement(By.Id("Nome"));
+            var txtPassword = Browser.FindElement(By.Id("Password"));
+
+            //Envia os dados para o formulário
+            txtNome.SendKeys("Rafael Cruz");
+            txtPassword.SendKeys("123Mudar");
+        }
+
+        [Then(@"pagina de cadastro deve exibir uma mensagem de erro")]
+        public void EntaoPaginaDeCadastroDeveExibirUmaMensagemDeErro()
+        {
+            Assert.IsTrue(Browser.FindElement(By.XPath("//span[@data-valmsg-for='Email']")).Text == "Email é obrigatório");
+        }
+
 
 
         [Given(@"que sou um novo usuário")]
         public void DadoQueSouUmNovoUsuario()
         {
-            //Faz Nada
+            
         }
-        
-        [When(@"o eu navegar para a página de cadastro")]
-        public void QuandoOEuNavegarParaAPaginaDeCadastro()
-        {
-            //Navega para a URL da pagina de Cadastro
-            this.Browser.Navigate().GoToUrl("http://localhost:23324/Account/Create");
-        }
-        
-        [When(@"inseri todas as informações do formulário corretas")]
-        public void QuandoInseriTodasAsInformacoesDoFormularioCorretas()
+
+
+        [Given(@"inseri todas as informações do formulário corretas")]
+        public void DadoInseriTodasAsInformacoesDoFormularioCorretas()
         {
             //Pegando os elementos e gerando valores de testes
-            var txtNome = this.Browser.FindElement(By.Id("Nome"));
-            var txtEmail = this.Browser.FindElement(By.Id("Email"));
-            var txtPassword = this.Browser.FindElement(By.Id("Password"));
+            var txtNome = Browser.FindElement(By.Id("Nome"));
+            var txtEmail = Browser.FindElement(By.Id("Email"));
+            var txtPassword = Browser.FindElement(By.Id("Password"));
 
             //Envia os dados para o formulário
             txtNome.SendKeys("Rafael Cruz");
             txtEmail.SendKeys("teste@teste.com.br");
             txtPassword.SendKeys("123Mudar");
         }
-        
+
+
         [When(@"clicar no botão de criar conta")]
         public void QuandoClicarNoBotaoDeCriarConta()
         {
-            var btnCriarConta = this.Browser.FindElement(By.Id("btnSubmit"));
-
+            var btnCriarConta = Browser.FindElement(By.Id("btnSubmit"));
             //Faz o submit no formulario
             btnCriarConta.Submit();
-
         }
-        
-        [When(@"não inseri as informações de email")]
-        public void QuandoNaoInseriAsInformacoesDeEmail()
-        {
-            //Pegando os elementos e gerando valores de testes
-            var txtNome = this.Browser.FindElement(By.Id("Nome"));
-            var txtPassword = this.Browser.FindElement(By.Id("Password"));
 
-            //Envia os dados para o formulário
-            txtNome.SendKeys("Rafael Cruz");
-            txtPassword.SendKeys("123Mudar");
-        }
-        
+
         [Then(@"o usuário deve ser redirecionado para a Home Page")]
         public void EntaoOUsuarioDeveSerRedirecionadoParaAHomePage()
         {
-            Assert.IsTrue(this.Browser.Title == "Home Page - My ASP.NET MVC Application");
+            Assert.IsTrue(Browser.Title == "Home Page - My ASP.NET Application");
+
         }
-        
-        [Then(@"a pagina de cadastro deve exibir uma mensagem de erro")]
-        public void EntaoAPaginaDeCadastroDeveExibirUmaMensagemDeErro()
-        {
-            Assert.IsTrue(this.Browser.FindElement(By.XPath("//span[@data-valmsg-for='Email']")).Text == "Email é obrigatório");
-        }
+     
     }
 }

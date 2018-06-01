@@ -81,7 +81,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
  testRunner.Given("que sou um novo usuário", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
 #line 9
- testRunner.When("o eu navegar para a página de cadastro", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
+ testRunner.And("naveguei para a página de cadastro", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
 #line 10
  testRunner.And("inseri todas as informações do formulário corretas", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
 #line 11
@@ -103,13 +103,13 @@ this.ScenarioSetup(scenarioInfo);
 #line 15
  testRunner.Given("que sou um novo usuário", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
 #line 16
- testRunner.When("o eu navegar para a página de cadastro", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
+ testRunner.And("naveguei para a página de cadastro", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
 #line 17
- testRunner.And("não inseri as informações de email", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
+ testRunner.And("não inseri a informação de email", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
 #line 18
  testRunner.When("clicar no botão de criar conta", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
 #line 19
- testRunner.Then("a pagina de cadastro deve exibir uma mensagem de erro", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
+ testRunner.Then("pagina de cadastro deve exibir uma mensagem de erro", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
 #line hidden
             this.ScenarioCleanup();
         }
