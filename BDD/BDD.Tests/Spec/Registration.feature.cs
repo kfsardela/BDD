@@ -72,21 +72,23 @@ namespace BDD.Tests.Spec
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Em um cadastro realizado com sucesso o usuário deverá ser redirecionado para a Ho" +
             "me Page")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Registro Online")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Robo")]
         public virtual void EmUmCadastroRealizadoComSucessoOUsuarioDeveraSerRedirecionadoParaAHomePage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Em um cadastro realizado com sucesso o usuário deverá ser redirecionado para a Ho" +
-                    "me Page", ((string[])(null)));
-#line 7
-this.ScenarioSetup(scenarioInfo);
+                    "me Page", new string[] {
+                        "Robo"});
 #line 8
- testRunner.Given("que sou um novo usuário", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
+this.ScenarioSetup(scenarioInfo);
 #line 9
- testRunner.And("naveguei para a página de cadastro", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
+ testRunner.Given("que sou um novo usuário", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
 #line 10
- testRunner.And("inseri todas as informações do formulário corretas", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
+ testRunner.And("naveguei para a página de cadastro", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
 #line 11
- testRunner.When("clicar no botão de criar conta", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
+ testRunner.And("inseri todas as informações do formulário corretas", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
 #line 12
+ testRunner.When("clicar no botão de criar conta", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
+#line 13
  testRunner.Then("o usuário deve ser redirecionado para a Home Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
 #line hidden
             this.ScenarioCleanup();
@@ -95,20 +97,22 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Pagina de cadastro deve exibir uma mensagem de erro caso o email esteja em banco")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Registro Online")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Robo")]
         public virtual void PaginaDeCadastroDeveExibirUmaMensagemDeErroCasoOEmailEstejaEmBanco()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Pagina de cadastro deve exibir uma mensagem de erro caso o email esteja em banco", ((string[])(null)));
-#line 14
-this.ScenarioSetup(scenarioInfo);
-#line 15
- testRunner.Given("que sou um novo usuário", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Pagina de cadastro deve exibir uma mensagem de erro caso o email esteja em banco", new string[] {
+                        "Robo"});
 #line 16
- testRunner.And("naveguei para a página de cadastro", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
+this.ScenarioSetup(scenarioInfo);
 #line 17
- testRunner.And("não inseri a informação de email", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
+ testRunner.Given("que sou um novo usuário", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
 #line 18
- testRunner.When("clicar no botão de criar conta", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
+ testRunner.And("naveguei para a página de cadastro", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
 #line 19
+ testRunner.And("não inseri a informação de email", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
+#line 20
+ testRunner.When("clicar no botão de criar conta", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
+#line 21
  testRunner.Then("pagina de cadastro deve exibir uma mensagem de erro", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
 #line hidden
             this.ScenarioCleanup();

@@ -14,7 +14,7 @@ namespace BDD.Tests
     {
         private IWebDriver Browser;
 
-        [BeforeScenario]
+        [BeforeScenario("Robo")]
         public void CreateWebDriver()
         {
             ChromeDriverService service = ChromeDriverService.CreateDefaultService();
@@ -26,7 +26,7 @@ namespace BDD.Tests
             Browser = new ChromeDriver(service, chromeOpts);
         }
 
-        [BeforeScenario]
+        [AfterScenario("Robo")]
         public void CloseWebDriver()
         {
             //Fecha o browser depois que termina os cenarios
