@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using RestSharp;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -55,6 +56,22 @@ namespace BDD.Tests.Utils
         {
             ScenarioContext.Current["Endpoint"] = p0;
         }
+        
+        [Given(@"informei o seguinte argumento de rota '(.*)' de cenario")]
+        public void DadoInformeiOSeguinteArgumentoDeUrlDeCenario(string p0)
+        {
+            var endpoint = ScenarioContext.Current["Endpoint"];
+            var args = ScenarioContext.Current[p0];
+
+            if (endpoint.ToString().EndsWith(""))
+                endpoint += $"/{args}";
+            else
+                endpoint += $"{args}";
+
+            ScenarioContext.Current["Endpoint"] = endpoint;
+        }
+
+
 
         [Given(@"informei o seguinte argumento do tipo '(.*)':")]
         public void EOsSeguintesValores(string tipoModel, Table table)
@@ -62,9 +79,11 @@ namespace BDD.Tests.Utils
             
             var tipo = Activator.CreateInstance("WebApplication", tipoModel).Unwrap();
 
-            var reflValidarResposta = typeof(TableHelperExtensionMethods).GetMethod("CreateInstance", new[] { typeof(Table) }).GetGenericMethodDefinition();
-            var genericMethod = reflValidarResposta.MakeGenericMethod(tipo.GetType());
-            var arg = genericMethod.Invoke(null, new[] { table });
+            var arg = table.CreateInstance<WebApplication.Models.CustomerModel>();
+
+            //var reflValidarResposta = typeof(TableHelperExtensionMethods).GetMethod("CreateInstance", new[] { typeof(Table) }).GetGenericMethodDefinition();
+            //var genericMethod = reflValidarResposta.MakeGenericMethod(tipo.GetType());
+            //var arg = genericMethod.Invoke(null, new[] { table });
 
             var jsonSerializerSettings = new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() };
             var json = JsonConvert.SerializeObject(arg, Formatting.Indented, jsonSerializerSettings);
@@ -136,7 +155,39 @@ namespace BDD.Tests.Utils
             }
         }
 
-      
+        [Then(@"uma resposta com a uma lista do tipo '(.*)' deve ser retornada com os seguintes valores:")]
+        public void EntaoUmaRespostaDeUmaListaXDeveSerRetornadaComOsSeguintesValores(string tipoModel, Table table)
+        {
+            var tipoModelType = Activator.CreateInstance("WebApplication", tipoModel).Unwrap();
+
+            var listType = typeof(IEnumerable<>).MakeGenericType(tipoModelType.GetType());
+
+            try
+            {
+                var response = (IRestResponse)ScenarioContext.Current["Response"];
+                var content = response.Content;
+
+                var model = JsonConvert.DeserializeObject(content, listType, new JsonSerializerSettings()
+                {
+                    TypeNameHandling = TypeNameHandling.Auto,
+                });
+
+                var reflValidarResposta = typeof(SetComparisonExtensionMethods).GetMethod("CompareToSet", System.Reflection.BindingFlags.Instance | BindingFlags.Static | System.Reflection.BindingFlags.Public).GetGenericMethodDefinition();
+
+                var genericMethod = reflValidarResposta.MakeGenericMethod(tipoModelType.GetType());
+
+                genericMethod.Invoke(null, new[] { table, model });
+            }
+            catch (TargetInvocationException ex)
+            {
+                if (ex.InnerException != null)
+                    throw ex.InnerException;
+                else
+                    throw;
+            }
+        }
+
+
 
         #endregion
 

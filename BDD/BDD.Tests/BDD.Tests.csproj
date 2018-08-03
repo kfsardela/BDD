@@ -105,11 +105,17 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistroOnlineSteps.cs" />
-    <Compile Include="Spec\Api\Customer.feature.cs">
+    <Compile Include="Spec\Api\CustomerAPI.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Customer.feature</DependentUpon>
+      <DependentUpon>CustomerAPI.feature</DependentUpon>
     </Compile>
+    <Compile Include="Spec\Api\UserAPI.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserAPI.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Spec\CustomerSteps.cs" />
     <Compile Include="Spec\Registration.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -133,9 +139,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Spec\Api\Customer.feature">
+    <None Include="Spec\Api\CustomerAPI.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Customer.feature.cs</LastGenOutput>
+      <LastGenOutput>CustomerAPI.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Spec\Api\UserAPI.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>UserAPI.feature.cs</LastGenOutput>
     </None>
     <None Include="Spec\Registration.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

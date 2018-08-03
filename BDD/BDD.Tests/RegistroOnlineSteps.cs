@@ -20,7 +20,7 @@ namespace BDD.Tests
             ChromeDriverService service = ChromeDriverService.CreateDefaultService();
 
             ChromeOptions chromeOpts = new ChromeOptions();
-            //chromeOpts.AddArgument("--headless");
+            chromeOpts.AddArgument("--headless");
             
             //Cria a instancia do browser antes de executar os cenarios
             Browser = new ChromeDriver(service, chromeOpts);
