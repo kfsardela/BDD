@@ -79,17 +79,33 @@ namespace BDD.Tests.Utils
             
             var tipo = Activator.CreateInstance("WebApplication", tipoModel).Unwrap();
 
-            var arg = table.CreateInstance<WebApplication.Models.CustomerModel>();
+            //var arg = table.CreateInstance<WebApplication.Models.CustomerModel>();
 
-            //var reflValidarResposta = typeof(TableHelperExtensionMethods).GetMethod("CreateInstance", new[] { typeof(Table) }).GetGenericMethodDefinition();
-            //var genericMethod = reflValidarResposta.MakeGenericMethod(tipo.GetType());
-            //var arg = genericMethod.Invoke(null, new[] { table });
+            var reflValidarResposta = typeof(TableHelperExtensionMethods).GetMethod("CreateInstance", new[] { typeof(Table) }).GetGenericMethodDefinition();
+            var genericMethod = reflValidarResposta.MakeGenericMethod(tipo.GetType());
+            var arg = genericMethod.Invoke(null, new[] { table });
 
             var jsonSerializerSettings = new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() };
             var json = JsonConvert.SerializeObject(arg, Formatting.Indented, jsonSerializerSettings);
 
             ScenarioContext.Current["Data"] = json;
         }
+
+        [Given(@"a informei a propriedade '(.*)' do tipo '(.*)':")]
+        public void DadoAInformeiAPropriedadeDoTipo(string propriedade, string model, Table table)
+        {
+            var json = ScenarioContext.Current["Data"].ToString();
+            var obj = JsonConvert.DeserializeObject<WebApplication.Models.CustomerModel>(json);
+            var prop = obj.GetType().GetProperty(propriedade);
+            prop.SetValue(obj, table.CreateInstance<WebApplication.Models.UserModel>());
+
+            var jsonSerializerSettings = new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() };
+            var result = JsonConvert.SerializeObject(obj, Formatting.Indented, jsonSerializerSettings);
+
+            ScenarioContext.Current["Data"] = result;
+
+        }
+
 
 
 

@@ -7,15 +7,13 @@ namespace WebApplication.Models
 {
     public class CustomerModel
     {
-
         public int Id { get; set; }
         public String NomeCompleto { get; set; }
         public String Endereco { get; set; }
         public DateTime DataNascimento { get; set; }
-
         public String CPF { get; set; }
         public String Email { get; set; }
-
         public DateTime DataCadastro { get; set; }
+        public UserModel Usuario { get; set; }
     }
 }

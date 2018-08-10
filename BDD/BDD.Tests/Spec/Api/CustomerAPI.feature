@@ -32,6 +32,9 @@ Cenario: Criar um Cliente
 	E informei o seguinte argumento do tipo 'WebApplication.Models.CustomerModel':
 	| NomeCompleto | Endereco         | DataNascimento | CPF            | Email                      |
 	| Rafael Cruz  | Rua Teste de API | 13/03/1981     | 000.000.000-00 | rafaelcruz.net81@gmail.com |
+	E a informei a propriedade 'Usuario' do tipo 'WebApplication.Models.CustomerModel com o valores':
+	| Nome   | Email               | Password |
+	| Teste  | teste@teste.com.br  | 123456A# |
 	Quando chamar o servico
 	Entao statuscode da resposta deverá ser 'Created'
 	E uma resposta do tipo 'WebApplication.Models.CustomerModel' deve ser retornada com os seguintes valores:
